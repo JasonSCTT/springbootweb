@@ -16,7 +16,7 @@
         <el-main id="main">
             <el-row type="flex" class="row-bg" justify="center">
                 <el-col :xs="8" :sm="9" :md="8" :lg="6" :xl="5">
-                    <el-card class="box-card">
+                    <div  style="background:white;width:100%">
                         <div solt="header" class="header">
                             <span class="item">登录</span>
                         </div>
@@ -24,37 +24,55 @@
                             <!-- 登录表单 -->
                             <el-form :model="login" status-icon ref="login">
                                 <el-row>
-                                    <el-col :span="5">
-                                        <label>用户名：</label>
-                                    </el-col>
-                                    <el-col :span="12">
+                                    <el-col :span="20" :offset="1">
                                         <el-form-item prop="username"
                                                       :rules="[{ required: true, message: '用户名不能为空'}]">
-                                            <el-input prefix-icon="el-icon-ump-yonghu" v-model="login.username"
+                                            <el-input prop="password" v-model="login.username"
                                                       auto-complete="off"></el-input>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
+                                <el-row>
+                                    <el-col :span="20" :offset="1">
+                                        <el-form-item prop="password"
+                                                      :rules="[{ required: true, message: '密码不能为空'}]">
+                                            <el-input  type="password"
+                                                      v-model="login.password" @keyup.enter.native="loginEnter('login')"
+                                                      auto-complete="off"></el-input>
+                                        </el-form-item>
+                                    </el-col>
 
-                                <el-form-item prop="password"
-                                              :rules="[{ required: true, message: '密码不能为空'}]">
-                                    <el-input prefix-icon="el-icon-ump-mima" type="password"
-                                              v-model="login.password" @keyup.enter.native="loginEnter('login')"
-                                              auto-complete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item>
-                                    <el-checkbox class="check" v-model="login.remember">记住我</el-checkbox>
-                                </el-form-item>
-                                <el-form-item>
-                                    <el-button class="btn" type="primary" @click="submitForm('login')">登录
-                                    </el-button>
-                                </el-form-item>
+                                </el-row>
+
+                                <el-row>
+                                    <el-col :span="23" :offset="1">
+                                        <el-form-item  prop="pictureCode">
+                                            <el-input   v-model="pictureCode" style="width: 178px;"></el-input>
+                                            <img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAjCAIAAACMxRqVAAACgUlEQVR42s2ZMU4EMQxFcwDOQrsFPT0tNRI9PeeioaXiIByBlpVGZL3f9redZAYkF6vMbOI3tn+cmfb99flP7P3jbbNdV2kDbu3nZZ9tZkL+96ad5ovp6ZZ4SZ7pWuamneauezeQGQ5I1DKwvO/0fGuaB/z6eHM2GRwC3H+/PDx12wn4dH+3WVDDHnA3Auw9Y828H+0FZBWwDPgYcIZ2vhBGgMEDM85V4HwyTzLPAutLm0PDwHDDfsBSd2JgyMYSMNGqjJIvBz5b0/MSYHmVAG8jm3XdhmQGqwJnngWk9BUwT2k5u74EwEArNyognGHGMPyyyaiyGjaR9N4b1rCkhW5Es8G4WQKkEerjmhbMFq3L/xUwb0I6HtCCuyatx6yBvQYOoqoHa8B8B5YpDab7TY9qFTAm4ypgnV1rgbU/BNikygKbvbRZulDzoFJhDSfbTBJkEsZChD1gslfJGu47EEh0dxpEqy/qdV1mAueBU4cHL55cugFYM5v7cNhm8oN3CVhO1fQyJjBJbI1nbsWa0It5Ehg2JDicmupdiDAZN3NYD5qnpS2w4RuFDDAP/lVrybsL/iw8OUm21p5EeeKsRzL7sPx7FtgMsslJut8wXbkmh8CeybVqwOamNfAGj7fNGX3mjbQGtkUr9DvzyjJPnnn1Zea26aen2FBQrfSSOZTN5MnWC5fpoi6WZEKZk7Sx49gS4EyrbMYgX0ExcIk5DBRX6VACvBNiSTKAeQo4FNWBrK5We+nzjQ0csmW+OYTMySDPA8NaBwHzHfWPgfMNExGh8EGYdx7wLbZlPpeF0eCJWrL9PkTUUroqTmGQq2W/BNj9IF4SZA7Mzz2hXC8E3uwH/k4+gOC+1YkAAAAASUVORK5CYII=" id="createCheckCode" @click="createCheckCode()" align="middle" style="width: 80px;height: 30px;">
+                                            <a href="#" @click="createCheckCode()" style="font-weight: 100!important;font-size: 15px;background:white;color:black;">换一个</a>
+                                        </el-form-item>
+                                    </el-col>
+
+                                </el-row>
+                                <el-row>
+                                    <el-col :span="16" :offset="4" >
+                                        <el-form-item>
+                                            <el-form-item>
+                                                <el-button class="btn" type="primary" @click="submitForm('login')">登录
+                                                </el-button>
+                                            </el-form-item>
+
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+
+
                             </el-form>
                             <div>
                                 <p><a href="/register" class="tips">还没有账号？点我去注册</a></p>
                             </div>
                         </div>
-                    </el-card>
+                    </div>
                 </el-col>
             </el-row>
         </el-main>

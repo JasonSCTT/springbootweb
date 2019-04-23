@@ -3,7 +3,7 @@
 -->
 <configuration debug="false">
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
-    <property name="LOG_HOME" value="/myapp/intellijProject/springbootweb/src/main/resources/log" />
+    <property name="LOG_HOME" value="D:\\tool\\intellijproject\\springbootweb\\src\\main\\resources\\log"/>
     <!-- 控制台输出 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -12,7 +12,7 @@
         </encoder>
     </appender>
     <!-- 按照每天生成日志文件 -->
-    <appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
             <FileNamePattern>${LOG_HOME}/TestWeb.log.%d{yyyy-MM-dd}.log</FileNamePattern>
@@ -28,6 +28,12 @@
             <MaxFileSize>1MB</MaxFileSize>
         </triggeringPolicy>
     </appender>
+    <!-- 打印mybatis查询sql后的结果-->
+    <logger name="com.jason.springbootweb.dao" level="debug" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+
     <!--myibatis log configure-->
     <logger name="com.apache.ibatis" level="TRACE"/>
     <logger name="java.sql.Connection" level="DEBUG"/>
@@ -36,20 +42,20 @@
 
     <!-- 日志输出级别 -->
     <root level="INFO">
-        <appender-ref ref="STDOUT" />
-        <appender-ref ref="FILE" />
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
     </root>
     <!--日志异步到数据库 此处需要处理到数据库中的时候可以操作 -->
     <!--<appender name="DB" class="ch.qos.logback.classic.db.DBAppender">-->
-        <!--&lt;!&ndash;日志异步到数据库 &ndash;&gt;-->
-        <!--<connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">-->
-            <!--&lt;!&ndash;连接池 &ndash;&gt;-->
-            <!--<dataSource class="org.apache.commons.dbcp.BasicDataSource">-->
-                <!--<driverClass>com.mysql.jdbc.Driver</driverClass>-->
-                <!--<url>jdbc:mysql://localhost:3306/jason</url>-->
-                <!--<user>root</user>-->
-                <!--<password>712049</password>-->
-            <!--</dataSource>-->
-        <!--</connectionSource>-->
+    <!--&lt;!&ndash;日志异步到数据库 &ndash;&gt;-->
+    <!--<connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">-->
+    <!--&lt;!&ndash;连接池 &ndash;&gt;-->
+    <!--<dataSource class="org.apache.commons.dbcp.BasicDataSource">-->
+    <!--<driverClass>com.mysql.jdbc.Driver</driverClass>-->
+    <!--<url>jdbc:mysql://localhost:3306/jason</url>-->
+    <!--<user>root</user>-->
+    <!--<password>712049</password>-->
+    <!--</dataSource>-->
+    <!--</connectionSource>-->
     <!--</appender>-->
 </configuration>

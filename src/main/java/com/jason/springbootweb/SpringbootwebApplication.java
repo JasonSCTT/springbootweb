@@ -1,12 +1,11 @@
 package com.jason.springbootweb;
 
+import com.jason.springbootweb.interceptor.SessionIntegerceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.util.ResourceUtils;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
@@ -32,4 +31,10 @@ public class SpringbootwebApplication  extends WebMvcConfigurationSupport {
 		super.addResourceHandlers(registry);
 	}
 
+
+	@Override
+	protected void addInterceptors(InterceptorRegistry registry) {
+		super.addInterceptors(registry);
+		registry.addInterceptor(new SessionIntegerceptor()).addPathPatterns("/**");
+	}
 }

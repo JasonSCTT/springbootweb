@@ -1,6 +1,8 @@
 var index= new Vue({
     el:"#index",
     data:{
+        isFrame:false,
+        url:"",
         tableData: [{
             date: '2016-05-18',
             name: '王小虎',
@@ -12,8 +14,9 @@ var index= new Vue({
     ,
     methods:{
         btncreate:function () {
-            console.log("asdfasdf");
-            $("#abc").load("Login.html");
+            this.isFrame=true;
+            this.url="/html/Login.html";
+            console.log(isFrame);
         }
     }
 })
