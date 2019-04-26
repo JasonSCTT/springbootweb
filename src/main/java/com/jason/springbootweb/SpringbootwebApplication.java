@@ -35,6 +35,6 @@ public class SpringbootwebApplication  extends WebMvcConfigurationSupport {
 	@Override
 	protected void addInterceptors(InterceptorRegistry registry) {
 		super.addInterceptors(registry);
-		registry.addInterceptor(new SessionIntegerceptor()).addPathPatterns("/**");
+		registry.addInterceptor(new SessionIntegerceptor()).addPathPatterns("/**").excludePathPatterns("/html/**").excludePathPatterns("/static/**");;
 	}
 }
