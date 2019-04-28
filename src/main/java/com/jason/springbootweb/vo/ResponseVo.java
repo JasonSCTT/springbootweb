@@ -6,17 +6,17 @@ import java.util.HashMap;
 
 @Data
 public class ResponseVo {
-    //是否成功
-    private boolean success;
     //返回的结果对象
-    private Object resultObject;
+    private Object data;
+    //返回的状态码
+    private int code;
 
     public ResponseVo() {
     }
 
-    public ResponseVo(Boolean success, Object resultObject) {
-        this.success = success;
-        this.resultObject = resultObject;
+    public ResponseVo(int  code, Object data) {
+        this.code = code;
+        this.data = data;
     }
 
 

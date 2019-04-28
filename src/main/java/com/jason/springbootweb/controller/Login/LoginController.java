@@ -1,28 +1,69 @@
 package com.jason.springbootweb.controller.Login;
 
+import com.jason.springbootweb.dao.mapper.LoginUserMapper;
+import com.jason.springbootweb.dao.pojo.LoginUser;
+import com.jason.springbootweb.exception.VoException;
 import com.jason.springbootweb.tool.HttpUtil;
+import com.jason.springbootweb.vo.ResponseVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import sun.misc.BASE64Encoder;
 
+
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Random;
 
 @RestController
 @RequestMapping("/login")
 public class LoginController {
 
+    @Autowired
+    private LoginUserMapper loginUserMapper;
 
+    @RequestMapping("/loginin")
+    public Object loginIn(@RequestBody Map params) {
+        String pictureCode = (String) HttpUtil.getSession().getAttribute("pictureCode");
+        if (!pictureCode.equalsIgnoreCase((String) params.get("pictureCode"))) {
+            throw new VoException("验证码校验不通过，请重新输入");
+        }
+        LoginUser loginUser = loginUserMapper.getLoginUser(params);
+
+        // 如果登录用户不存在那么
+        if (loginUser != null) {
+            HttpUtil.getSession().setAttribute("currentUser", loginUser);
+        } else {
+            throw new VoException("用户名密码输入不正确，请重新输入");
+        }
+
+        return new ResponseVo(1,null);
+    }
+
+
+    // 获取验证码
     @RequestMapping("/getPicutreCode")
     public Object getPictureCode() {
         return createPictureCode();
     }
+
+    @RequestMapping(value = "/loginOut", method = RequestMethod.POST)
+    public Object loginOut(HttpSession session)  {
+        if (session != null) {
+            session.invalidate();
+        }
+        return new ResponseVo(1,null);
+    }
+
     //随机生成图片验证码
     public Object createPictureCode() {
         int width = 80, height = 35; // 创建验证码图片的大小
@@ -66,10 +107,9 @@ public class LoginController {
                 scaleSize = 1f;
             trans.scale(scaleSize, scaleSize);
             g2d_word.setTransform(trans);
-            g.drawString(sTemp, 4+19*i,25);
+            g.drawString(sTemp, 4 + 19 * i, 25);
         }
-        HttpUtil.getSession().setAttribute("picutreCode",sb.toString());
-        System.out.println("sRand="+sb.toString());
+        HttpUtil.getSession().setAttribute("pictureCode", sb.toString());
         g.dispose(); // 释放g所占用的系统资源
         ByteArrayOutputStream baos = new ByteArrayOutputStream();//io流
         try {
@@ -79,7 +119,7 @@ public class LoginController {
         }
         byte[] bytes = baos.toByteArray();//转换成字节
         BASE64Encoder encoder = new BASE64Encoder();
-        String png_base64 =  encoder.encodeBuffer(bytes).trim();//转换成base64串
+        String png_base64 = encoder.encodeBuffer(bytes).trim();//转换成base64串
         png_base64 = png_base64.replaceAll("\n", "").replaceAll("\r", "");//删除 \r\n
         return png_base64;
     }
@@ -99,8 +139,9 @@ public class LoginController {
 
 
     private static String codes = "0123456789abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYXZ";
+
     private static char randomChar() {
-        Random r =new Random();
+        Random r = new Random();
         int index = r.nextInt(codes.length());
         return codes.charAt(index);
     }

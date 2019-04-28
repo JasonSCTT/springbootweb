@@ -15,3 +15,22 @@ window.Global={
 
 
 }
+
+Vue.prototype.vAlter = function (title, obj, type) {
+    var message = null;
+    if(obj instanceof Object){
+        if(obj.message){
+            message = obj.message;
+        }
+        if (obj.response && obj.response.status){
+            message = obj.response.status + ":" + message;
+        }
+    }
+    if(message === null){
+        message = obj;
+    }
+
+    this.$notify({
+        title: title, message: message, type: type
+    });
+}

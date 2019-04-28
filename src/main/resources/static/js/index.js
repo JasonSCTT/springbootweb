@@ -17,6 +17,14 @@ var index= new Vue({
             this.isFrame=true;
             this.url="/html/Login.html";
             console.log(isFrame);
+        },
+
+        loginOut: function () {
+            Global.axiosPost('/login/loginOut', {}, function (json) {
+                if (json.code==1) {
+                    location.href = '/html/Login.html';
+                }
+            });
         }
     }
 })

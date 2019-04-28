@@ -36,6 +36,16 @@
                 </el-dropdown-menu>
             </el-dropdown>
             <span>王小虎</span>
+
+            <el-dropdown>
+                <span class="el-dropdown-link">TyCoding<i class="el-icon-arrow-down el-icon--right"></i></span>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item>首页</el-dropdown-item>
+                    <el-dropdown-item><a href="https://github.com/TyCoding" target="_blank">GitHub</a></el-dropdown-item>
+                    <el-dropdown-item><a href="http://tycoding.cn/" target="_blank">Blog</a></el-dropdown-item>
+                    <el-dropdown-item  @click.native="loginOut()">退出</el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
         </el-header>
 
 

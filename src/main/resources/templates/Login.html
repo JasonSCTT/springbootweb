@@ -29,7 +29,7 @@
                                     <el-col :span="20" :offset="1">
                                         <el-form-item prop="username"
                                                       :rules="[{ required: true, message: '用户名不能为空'}]">
-                                            <el-input prop="password" v-model="login.username"
+                                            <el-input  v-model="login.username"
                                                       auto-complete="off"></el-input>
                                         </el-form-item>
                                     </el-col>
@@ -39,7 +39,7 @@
                                         <el-form-item prop="password"
                                                       :rules="[{ required: true, message: '密码不能为空'}]">
                                             <el-input  type="password"
-                                                      v-model="login.password" @keyup.enter.native="loginEnter('login')"
+                                                      v-model="login.password"
                                                       auto-complete="off"></el-input>
                                         </el-form-item>
                                     </el-col>
@@ -49,7 +49,7 @@
                                 <el-row>
                                     <el-col :span="23" :offset="1">
                                         <el-form-item  prop="pictureCode">
-                                            <el-input   v-model="pictureCode" style="width: 178px;"></el-input>
+                                            <el-input   v-model="login.pictureCode" style="width: 178px;"></el-input>
                                             <img  :src="checkCode" id="createCheckCode" @click="createCheckCode()" align="middle" style="width: 80px;height: 30px;">
                                             <a href="#" @click="createCheckCode()" style="font-weight: 100!important;font-size: 15px;background:white;color:black;">换一个</a>
                                         </el-form-item>

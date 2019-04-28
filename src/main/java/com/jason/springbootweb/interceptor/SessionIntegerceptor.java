@@ -1,6 +1,7 @@
 package com.jason.springbootweb.interceptor;
 
-import com.jason.springbootweb.entity.CurrentUser;
+import com.jason.springbootweb.dao.pojo.LoginUser;
+import com.jason.springbootweb.exception.VoException;
 import com.jason.springbootweb.tool.HttpUtil;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -10,8 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SessionIntegerceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        CurrentUser currentUser = HttpUtil.getSession("currentUser");
-
+        LoginUser currentUser = HttpUtil.getSession("currentUser");
         if (currentUser == null) {
             System.out.println(HttpUtil.getSession().getAttribute("picutreCode"));
             String redirectPage = "/html/Login.html";
