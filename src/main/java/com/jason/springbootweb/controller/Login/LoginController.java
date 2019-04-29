@@ -31,6 +31,16 @@ public class LoginController {
     @Autowired
     private LoginUserMapper loginUserMapper;
 
+    @RequestMapping("/queryUserbyId")
+    public Object queryUserbyId() {
+        LoginUser loginUser = (LoginUser) HttpUtil.getSession().getAttribute("currentUser");
+        if (loginUser != null) {
+            return new ResponseVo(1, loginUser);
+        }
+       return new ResponseVo(-1,null);
+    }
+
+
     @RequestMapping("/loginin")
     public Object loginIn(@RequestBody Map params) {
         String pictureCode = (String) HttpUtil.getSession().getAttribute("pictureCode");
@@ -46,7 +56,7 @@ public class LoginController {
             throw new VoException("用户名密码输入不正确，请重新输入");
         }
 
-        return new ResponseVo(1,null);
+        return new ResponseVo(1, null);
     }
 
 
@@ -57,11 +67,11 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/loginOut", method = RequestMethod.POST)
-    public Object loginOut(HttpSession session)  {
+    public Object loginOut(HttpSession session) {
         if (session != null) {
             session.invalidate();
         }
-        return new ResponseVo(1,null);
+        return new ResponseVo(1, null);
     }
 
     //随机生成图片验证码

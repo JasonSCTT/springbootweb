@@ -9,7 +9,12 @@ var index= new Vue({
             address: '上海市你在哪里'
         },{  date: '2016-05-02',
             name: '王小虎',
-            address: 'shanghiai'}]
+            address: 'shanghiai'}],
+        name:""
+    },
+
+    mounted:function(){
+        this.queryUserbyId();
     }
     ,
     methods:{
@@ -25,6 +30,21 @@ var index= new Vue({
                     location.href = '/html/Login.html';
                 }
             });
+        },
+        queryUserbyId:function () {
+            var self =this;
+            Global.axiosPost('/login/queryUserbyId', {}, function (json) {
+
+                    if (json.code == 1) {
+                        self.name=json.data.username;
+                    }else{
+                        self.vAlter('警告', 'session中数据异常', 'warning');
+                    }
+
+            });
         }
+
+
+
     }
 })

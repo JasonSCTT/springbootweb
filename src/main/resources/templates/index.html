@@ -20,6 +20,11 @@
         .el-aside {
             color: #333;
         }
+        #author {
+            float: right;
+            border-bottom: none;
+        }
+
     </style>
 
 </head>
@@ -37,8 +42,8 @@
             </el-dropdown>
             <span>王小虎</span>
 
-            <el-dropdown>
-                <span class="el-dropdown-link">TyCoding<i class="el-icon-arrow-down el-icon--right"></i></span>
+            <el-dropdown id="author">
+                <span class="el-dropdown-link">{{name}}<i class="el-icon-arrow-down el-icon--right"></i></span>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item>首页</el-dropdown-item>
                     <el-dropdown-item><a href="https://github.com/TyCoding" target="_blank">GitHub</a></el-dropdown-item>

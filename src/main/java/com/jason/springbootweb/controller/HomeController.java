@@ -9,5 +9,10 @@ public class HomeController {
     public Object index() {
         return "index";
     }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public Object Home(){
+        return "forward:/Home/index";
+    }
 }
 
