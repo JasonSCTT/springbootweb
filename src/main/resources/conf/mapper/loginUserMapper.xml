@@ -6,6 +6,9 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="map">
         insert into loginuser(username,password) values(#{username},#{password});
     </insert>
+    <delete id="deleteAll">
+        delete from loginuser;
+    </delete>
     <select id="getLoginUser" resultType="com.jason.springbootweb.dao.pojo.LoginUser">
         select id,username,password from loginuser where username=#{username} and password=#{password}
     </select>

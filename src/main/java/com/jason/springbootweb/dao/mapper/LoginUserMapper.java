@@ -12,4 +12,6 @@ public interface LoginUserMapper {
     LoginUser getLoginUser(Map params);
 
     Boolean isExist(Map params);
+
+    void deleteAll();
 }
